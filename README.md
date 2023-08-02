@@ -1,14 +1,16 @@
-### Change password policy and create user ###
-change-policy -params passwordComplexityCheck=false
-execute 'create user dandelion identified by "dandelionpass" admin' ; 
-execute "GRANT readwrite TO USER dandelion"
-
-### after alter table update file dandelion/security/user.passwd ###
-
 ### Run container ### 
 ```
 docker run -d --name=oracle-nosql -e NOSQL_STORE_NAME=sample -p 5000:5000 oracle-nosql-ce:latest 
 ```
+
+### Change password policy and create user ###
+```
+change-policy -params passwordComplexityCheck=false
+execute 'create user sample identified by "[sample-password]" admin' ; 
+execute "GRANT readwrite TO USER sample"
+```
+
+Note: you can volume the file /opt/oracle-nosql/sample/security/user.passwd 
 
 ### connect to database ### 
 ```
