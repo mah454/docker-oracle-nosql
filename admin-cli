@@ -1,0 +1,17 @@
+#!/bin/sh 
+
+export JAVA_HOME="/opt/jre" 
+export PATH=$PATH:$JAVA_HOME/bin
+
+NOSQL_HOST="0.0.0.0" 
+
+[[ -z $NOSQL_PORT ]] && NOSQL_PORT="5000" 
+[[ -z $NOSQL_STORE_NAME ]] && NOSQL_STORE_NAME="default" 
+
+/opt/jre/bin/java -Xmx256m -Xms256m \
+    -jar /opt/oracle-nosql/lib/kvstore.jar runadmin \
+    -store $NOSQL_STORE_NAME \
+    -host $NOSQL_HOST \
+    -port $NOSQL_PORT \
+    -username admin \
+    -security /opt/oracle-nosql/$NOSQL_STORE_NAME/security/user.security
